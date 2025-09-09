@@ -32,17 +32,21 @@ export default function Timer() {
       <div className="mt-4 grid grid-cols-3 gap-3 justify-center">
         <button
           onClick={() => setIsRunning(true)}
-          className={`px-4 rounded-xl font-bold transition-all duration-300 ${
+          className={`py-4 rounded-xl font-bold transition-all duration-300 ${
             isRunning
-              ? " bg-green-500 text-white animate-pulse"
-              : "bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+              ? " bg-green-600 text-white "
+              : "bg-gray-500 text-black hover:bg-gray-900 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
           } `}
         >
           Start
         </button>
         <button
           onClick={() => setIsRunning(false)}
-          className="py-2 bg-yellow-500 text-white text-2xl font-bold rounded-xl hover:bg-yellow-600"
+          className={`px-4 rounded-xl font-bold   ${
+            isRunning
+              ? " bg-amber-500 text-white "
+              : "bg-gray-500 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+          } `}
         >
           Pause
         </button>
@@ -52,7 +56,11 @@ export default function Timer() {
             setMinutes(25);
             setSeconds(0);
           }}
-          className="px-4 bg-red-500 text-white text-2xl font-bold rounded-xl hover:bg-red-600"
+          className={`px-4 rounded-xl font-bold  ${
+            isRunning
+              ? " bg-red-500 text-white "
+              : "bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+          } `}
         >
           Reset
         </button>
