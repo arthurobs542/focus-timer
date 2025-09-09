@@ -32,7 +32,11 @@ export default function Timer() {
       <div className="mt-4 grid grid-cols-3 gap-3 justify-center">
         <button
           onClick={() => setIsRunning(true)}
-          className="px-4 bg-green-500 text-white text-2xl font-bold rounded-xl hover:bg-green-700"
+          className={`px-4 rounded-xl font-bold transition-all duration-300 ${
+            isRunning
+              ? " bg-green-500 text-white animate-pulse"
+              : "bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+          } `}
         >
           Start
         </button>
