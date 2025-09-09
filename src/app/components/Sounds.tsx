@@ -65,9 +65,14 @@ export default function Sounds() {
           return (
             <div
               key={option}
-              className={`py-2 rounded-xl shadow flex flex-col items-center
-                ${isPlaying ? "bg-white text-black" : "bg-gray-600"}
-              `}
+              className={`
+      text-center px-4 py-2 rounded-lg transition
+    ${
+      isPlaying
+        ? "bg-amber-500 text-white hover:bg-amber-600 dark:bg-amber-400 dark:hover:bg-amber-500"
+        : "bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+    }
+  `}
             >
               <button
                 onClick={() => toggleSound(option)}
@@ -88,7 +93,7 @@ export default function Sounds() {
                   onChange={(e) =>
                     changeVolume(option, parseFloat(e.target.value))
                   }
-                  className="mt-1 w-18 accent-yellow-500"
+                  className="mt-1 w-20 accent-white"
                 />
               )}
             </div>
