@@ -29,18 +29,18 @@ export default function Timer() {
       <h1 className="text-8xl font-black">
         {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
       </h1>
-      <div className="mt-4 flex gap-4 justify-center">
+      <div className="mt-4 grid grid-cols-3 gap-3 justify-center">
         <button
           onClick={() => setIsRunning(true)}
-          className="px-8 py-3 bg-green-500 text-white text-4xl font-bold rounded hover:bg-green-700"
+          className="px-4 bg-green-500 text-white text-2xl font-bold rounded-xl hover:bg-green-700"
         >
-          START
+          Start
         </button>
         <button
           onClick={() => setIsRunning(false)}
-          className="px-8 py-3 bg-yellow-500 text-white text-4xl font-bold rounded hover:bg-yellow-600"
+          className="py-2 bg-yellow-500 text-white text-2xl font-bold rounded-xl hover:bg-yellow-600"
         >
-          PAUSE
+          Pause
         </button>
         <button
           onClick={() => {
@@ -48,9 +48,9 @@ export default function Timer() {
             setMinutes(25);
             setSeconds(0);
           }}
-          className="px-8 py-3 bg-red-500 text-white text-4xl font-bold rounded hover:bg-red-600"
+          className="px-4 bg-red-500 text-white text-2xl font-bold rounded-xl hover:bg-red-600"
         >
-          RESET
+          Reset
         </button>
       </div>
     </div>
