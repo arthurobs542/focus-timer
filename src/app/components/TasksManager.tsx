@@ -51,26 +51,26 @@ export default function TasksManager() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
+    <div className="w-full max-w-4xl mx-auto p-4 sm:p-6">
       <div
-        className={`backdrop-blur-md rounded-2xl p-6 ${
+        className={`backdrop-blur-md rounded-2xl p-4 sm:p-6 ${
           theme === "dark"
             ? "bg-white/10 border border-white/20"
             : "bg-white/30 border border-gray-300/30"
         }`}
       >
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <h2
-            className={`text-2xl font-bold ${
+            className={`text-xl sm:text-2xl font-bold ${
               theme === "dark" ? "text-white" : "text-gray-900"
             }`}
           >
             📋 Gerenciador de Tarefas
           </h2>
-          <div className="flex gap-2">
+          <div className="flex gap-2 w-full sm:w-auto">
             <button
               onClick={() => setShowCompleted(!showCompleted)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors flex-1 sm:flex-none ${
                 showCompleted
                   ? "bg-green-600 text-white"
                   : theme === "dark"
@@ -78,12 +78,16 @@ export default function TasksManager() {
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
-              {showCompleted ? "Ocultar Concluídas" : "Ver Concluídas"} (
-              {completedTasks.length})
+              <span className="hidden sm:inline">
+                {showCompleted ? "Ocultar Concluídas" : "Ver Concluídas"} ({completedTasks.length})
+              </span>
+              <span className="sm:hidden">
+                {showCompleted ? "Ocultar" : "Ver"} ({completedTasks.length})
+              </span>
             </button>
             <button
               onClick={() => setIsAddingTask(!isAddingTask)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm font-medium flex-1 sm:flex-none"
             >
               {isAddingTask ? "Cancelar" : "+ Nova Tarefa"}
             </button>

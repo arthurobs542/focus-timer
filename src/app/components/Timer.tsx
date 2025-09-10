@@ -52,10 +52,10 @@ export default function Timer({ currentMode, onModeChange }: TimerProps) {
 
   return (
     <div className="text-center">
-      <div className="mt-4 grid grid-cols-3 gap-3 justify-center">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 justify-center mb-6">
         <button
           onClick={() => onModeChange("focus")}
-          className={`px-4 py-4 rounded-xl font-bold transition-all duration-300 ${
+          className={`px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
             currentMode === "focus"
               ? theme === "dark"
                 ? "bg-indigo-700 text-white hover:bg-indigo-800"
@@ -69,7 +69,7 @@ export default function Timer({ currentMode, onModeChange }: TimerProps) {
         </button>
         <button
           onClick={() => onModeChange("short")}
-          className={`px-4 py-4 rounded-xl font-bold transition-all duration-300 ${
+          className={`px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
             currentMode === "short"
               ? theme === "dark"
                 ? "bg-emerald-700 text-white hover:bg-emerald-800"
@@ -79,11 +79,12 @@ export default function Timer({ currentMode, onModeChange }: TimerProps) {
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
         >
-          Short Break
+          <span className="hidden sm:inline">Short Break</span>
+          <span className="sm:hidden">Short</span>
         </button>
         <button
           onClick={() => onModeChange("long")}
-          className={`px-4 py-4 rounded-xl font-bold transition-all duration-300 ${
+          className={`px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
             currentMode === "long"
               ? theme === "dark"
                 ? "bg-amber-700 text-white hover:bg-amber-800"
@@ -93,16 +94,17 @@ export default function Timer({ currentMode, onModeChange }: TimerProps) {
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
         >
-          Long Break
+          <span className="hidden sm:inline">Long Break</span>
+          <span className="sm:hidden">Long</span>
         </button>
       </div>
-      <h1 className="text-8xl font-bold">
+      <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-6">
         {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
       </h1>
-      <div className="mt-6">
+      <div>
         <button
           onClick={() => setIsRunning((r) => !r)}
-          className={`px-6 py-3 rounded-xl font-bold transition-colors duration-200 ${
+          className={`px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 ${
             isRunning
               ? theme === "dark"
                 ? "bg-rose-700 text-white hover:bg-rose-800"

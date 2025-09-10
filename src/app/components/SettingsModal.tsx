@@ -34,27 +34,34 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
-      <div className={`fixed inset-0 ${
-        theme === "dark" ? "bg-black/40" : "bg-black/20"
-      }`} aria-hidden="true" />
+      <div
+        className={`fixed inset-0 ${
+          theme === "dark" ? "bg-black/40" : "bg-black/20"
+        }`}
+        aria-hidden="true"
+      />
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className={`w-full max-w-md rounded-2xl p-6 shadow-lg ${
-          theme === "dark" 
-            ? "bg-gray-900 border border-gray-700" 
-            : "bg-white border border-gray-200"
-        }`}>
+        <Dialog.Panel
+          className={`w-full max-w-md rounded-2xl p-4 sm:p-6 shadow-lg ${
+            theme === "dark"
+              ? "bg-gray-900 border border-gray-700"
+              : "bg-white border border-gray-200"
+          }`}
+        >
           <div className="flex justify-between items-center mb-6">
-            <Dialog.Title className={`text-xl font-bold ${
-              theme === "dark" ? "text-gray-200" : "text-gray-800"
-            }`}>
+            <Dialog.Title
+              className={`text-xl font-bold ${
+                theme === "dark" ? "text-gray-200" : "text-gray-800"
+              }`}
+            >
               Configurações
             </Dialog.Title>
             <button
               onClick={onClose}
               className={`transition-colors ${
-                theme === "dark" 
-                  ? "text-gray-400 hover:text-gray-100" 
+                theme === "dark"
+                  ? "text-gray-400 hover:text-gray-100"
                   : "text-gray-500 hover:text-gray-800"
               }`}
             >
@@ -63,16 +70,22 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </div>
 
           {/* Campos de tempo */}
-          <h3 className={`text-md font-semibold mb-3 ${
-            theme === "dark" ? "text-gray-300" : "text-gray-700"
-          }`}>
+          <h3
+            className={`text-md font-semibold mb-3 ${
+              theme === "dark" ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
             Tempo (minutos)
           </h3>
-          <div className="grid grid-cols-3 gap-3 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
             <div className="flex flex-col">
-              <label className={`text-sm mb-1 ${
-                theme === "dark" ? "text-gray-300" : "text-gray-700"
-              }`}>Pomodoro</label>
+              <label
+                className={`text-sm mb-1 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Pomodoro
+              </label>
               <input
                 type="number"
                 value={pomodoro}
@@ -85,9 +98,13 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               />
             </div>
             <div className="flex flex-col">
-              <label className={`text-sm mb-1 ${
-                theme === "dark" ? "text-gray-300" : "text-gray-700"
-              }`}>Pausa Curta</label>
+              <label
+                className={`text-sm mb-1 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Pausa Curta
+              </label>
               <input
                 type="number"
                 value={shortBreak}
@@ -100,9 +117,13 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               />
             </div>
             <div className="flex flex-col">
-              <label className={`text-sm mb-1 ${
-                theme === "dark" ? "text-gray-300" : "text-gray-700"
-              }`}>Pausa Longa</label>
+              <label
+                className={`text-sm mb-1 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Pausa Longa
+              </label>
               <input
                 type="number"
                 value={longBreak}
@@ -118,9 +139,11 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
           {/* Toggles */}
           <div className="flex items-center justify-between mb-4">
-            <span className={`text-sm ${
-              theme === "dark" ? "text-gray-300" : "text-gray-700"
-            }`}>
+            <span
+              className={`text-sm ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Iniciar Automaticamente as Pausas?
             </span>
             <input
@@ -132,9 +155,11 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </div>
 
           <div className="flex items-center justify-between mb-6">
-            <span className={`text-sm ${
-              theme === "dark" ? "text-gray-300" : "text-gray-700"
-            }`}>
+            <span
+              className={`text-sm ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Iniciar Automaticamente o Timer?
             </span>
             <input
@@ -146,9 +171,13 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </div>
 
           <div className="flex flex-col mb-6">
-            <label className={`text-sm mb-1 ${
-              theme === "dark" ? "text-gray-300" : "text-gray-700"
-            }`}>Intervalo para Pausa Longa</label>
+            <label
+              className={`text-sm mb-1 ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Intervalo para Pausa Longa
+            </label>
             <input
               type="number"
               value={longBreakInterval}
