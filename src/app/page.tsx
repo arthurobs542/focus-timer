@@ -1,27 +1,40 @@
 "use client";
 import { useState } from "react";
+import { useTheme } from "next-themes";
 import Sounds from "./components/Sounds";
 import ThemeToggle from "./components/ThemeToggle";
 import Timer from "./components/Timer";
 import SettingsModal from "./components/SettingsModal";
+import TasksManager from "./components/TasksManager";
 
 export default function Home() {
   const [isOpen, setISOpen] = useState(false);
   const [mode, setMode] = useState<"focus" | "short" | "long">("focus");
+  const { theme } = useTheme();
+
   return (
     <main
-      className={
-        `relative flex min-h-screen w-full flex-col items-center justify-center transition-colors duration-500 ` +
-        (mode === "focus"
-          ? " bg-indigo-950 text-white "
+      className={`relative flex min-h-screen w-full flex-col items-center justify-center transition-colors duration-500 ${
+        theme === "dark"
+          ? mode === "focus"
+            ? "bg-indigo-950 text-white"
+            : mode === "short"
+            ? "bg-emerald-950 text-white"
+            : "bg-amber-900 text-white"
+          : mode === "focus"
+          ? "bg-indigo-50 text-gray-900"
           : mode === "short"
-          ? " bg-emerald-950 text-white "
-          : " bg-amber-900 text-white ")
-      }
+          ? "bg-emerald-50 text-gray-900"
+          : "bg-amber-50 text-gray-900"
+      }`}
     >
       <button
         onClick={() => setISOpen(true)}
-        className="group absolute right-4 top-4 z-10 rounded-lg border border-white/20 bg-white/20 px-3 py-3 text-white shadow-sm backdrop-blur-md transition-colors hover:bg-indigo-600/80 focus:outline-none focus:ring-2 focus:ring-indigo-400/70 dark:border-white/10 dark:bg-black/30"
+        className={`group absolute right-4 top-4 z-10 rounded-lg px-3 py-3 shadow-sm backdrop-blur-md transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400/70 ${
+          theme === "dark"
+            ? "border border-white/20 bg-white/20 text-white hover:bg-indigo-600/80"
+            : "border border-gray-300/50 bg-white/80 text-gray-700 hover:bg-indigo-100/80"
+        }`}
         aria-label="Abrir configurações"
         title="Configurações"
       >
@@ -45,6 +58,9 @@ export default function Home() {
       <Timer currentMode={mode} onModeChange={setMode} />
       <Sounds />
       <ThemeToggle />
+      <div className="mt-8 w-full">
+        <TasksManager />
+      </div>
     </main>
   );
 }

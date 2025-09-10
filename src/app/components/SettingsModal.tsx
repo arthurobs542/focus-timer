@@ -1,7 +1,8 @@
 "use client";
 
 import { Dialog } from "@headlessui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSettings } from "../contexts/SettingsContext";
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -9,12 +10,25 @@ interface SettingsModalProps {
 }
 
 export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-  const [pomodoro, setPomodoro] = useState(25);
-  const [shortBreak, setShortBreak] = useState(5);
-  const [longBreak, setLongBreak] = useState(15);
-  const [autoBreaks, setAutoBreaks] = useState(true);
-  const [autoPomodoro, setAutoPomodoro] = useState(true);
-  const [longBreakInterval, setLongBreakInterval] = useState(4);
+  const { settings, updateSettings } = useSettings();
+  const [pomodoro, setPomodoro] = useState(settings.pomodoro);
+  const [shortBreak, setShortBreak] = useState(settings.shortBreak);
+  const [longBreak, setLongBreak] = useState(settings.longBreak);
+  const [autoBreaks, setAutoBreaks] = useState(settings.autoBreaks);
+  const [autoPomodoro, setAutoPomodoro] = useState(settings.autoPomodoro);
+  const [longBreakInterval, setLongBreakInterval] = useState(
+    settings.longBreakInterval
+  );
+
+  // Update local state when settings change
+  useEffect(() => {
+    setPomodoro(settings.pomodoro);
+    setShortBreak(settings.shortBreak);
+    setLongBreak(settings.longBreak);
+    setAutoBreaks(settings.autoBreaks);
+    setAutoPomodoro(settings.autoPomodoro);
+    setLongBreakInterval(settings.longBreakInterval);
+  }, [settings]);
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
@@ -112,8 +126,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             </button>
             <button
               onClick={() => {
-                // Aqui você pode salvar as configs no contexto ou localStorage
-                console.log({
+                updateSettings({
                   pomodoro,
                   shortBreak,
                   longBreak,
