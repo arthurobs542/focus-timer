@@ -1,14 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSettings } from "../contexts/SettingsContext";
+import { useTheme } from "next-themes";
 
-export default function Timer() {
-  const [minutes, setMinutes] = useState(25);
+type Mode = "focus" | "short" | "long";
+
+interface TimerProps {
+  currentMode: Mode;
+  onModeChange: (mode: Mode) => void;
+}
+
+export default function Timer({ currentMode, onModeChange }: TimerProps) {
+  const { settings } = useSettings();
+  const { theme } = useTheme();
+  const [minutes, setMinutes] = useState(settings.pomodoro);
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-
-  const SHORT_BREAK = 5;
-  const LONG_BREAK = 15;
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -27,65 +35,86 @@ export default function Timer() {
     return () => clearInterval(timer);
   }, [isRunning, minutes, seconds]);
 
+  // Sync timer display when the selected mode changes
+  useEffect(() => {
+    setIsRunning(false);
+    if (currentMode === "focus") {
+      setMinutes(settings.pomodoro);
+      setSeconds(0);
+    } else if (currentMode === "short") {
+      setMinutes(settings.shortBreak);
+      setSeconds(0);
+    } else if (currentMode === "long") {
+      setMinutes(settings.longBreak);
+      setSeconds(0);
+    }
+  }, [currentMode, settings]);
+
   return (
     <div className="text-center">
       <div className="mt-4 grid grid-cols-3 gap-3 justify-center">
         <button
-          onClick={() => setIsRunning(true)}
-          className={`py-4 rounded-xl font-bold transition-all duration-300 ${
-            isRunning
-              ? " bg-green-600 text-white "
-              : "bg-gray-500 text-black hover:bg-gray-900 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-          } `}
+          onClick={() => onModeChange("focus")}
+          className={`px-4 py-4 rounded-xl font-bold transition-all duration-300 ${
+            currentMode === "focus"
+              ? theme === "dark"
+                ? "bg-indigo-700 text-white hover:bg-indigo-800"
+                : "bg-indigo-600 text-white hover:bg-indigo-700"
+              : theme === "dark"
+              ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          }`}
         >
-          Start
+          Focus
         </button>
         <button
-          onClick={() => {
-            setIsRunning(false);
-            setMinutes(SHORT_BREAK);
-            setSeconds(0);
-          }}
-          className={`px-4 rounded-xl font-bold   ${
-            isRunning
-              ? " bg-green-400 text-white "
-              : "bg-gray-500 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-          } `}
+          onClick={() => onModeChange("short")}
+          className={`px-4 py-4 rounded-xl font-bold transition-all duration-300 ${
+            currentMode === "short"
+              ? theme === "dark"
+                ? "bg-emerald-700 text-white hover:bg-emerald-800"
+                : "bg-emerald-600 text-white hover:bg-emerald-700"
+              : theme === "dark"
+              ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          }`}
         >
           Short Break
         </button>
         <button
-          onClick={() => {
-            setIsRunning(false);
-            setMinutes(LONG_BREAK);
-            setSeconds(0);
-          }}
-          className={`px-4 rounded-xl font-bold   ${
-            isRunning
-              ? " bg-amber-500 text-white "
-              : "bg-gray-500 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-          } `}
+          onClick={() => onModeChange("long")}
+          className={`px-4 py-4 rounded-xl font-bold transition-all duration-300 ${
+            currentMode === "long"
+              ? theme === "dark"
+                ? "bg-amber-700 text-white hover:bg-amber-800"
+                : "bg-amber-600 text-white hover:bg-amber-700"
+              : theme === "dark"
+              ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          }`}
         >
           Long Break
         </button>
-        {/* <button
-          onClick={() => {
-            setIsRunning(false);
-            setMinutes(25);
-            setSeconds(0);
-          }}
-          className={`px-4 rounded-xl font-bold  ${
-            isRunning
-              ? " bg-red-500 text-white "
-              : "bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
-          } `}
-        >
-          Reset
-        </button> */}
       </div>
       <h1 className="text-8xl font-bold">
         {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
       </h1>
+      <div className="mt-6">
+        <button
+          onClick={() => setIsRunning((r) => !r)}
+          className={`px-6 py-3 rounded-xl font-bold transition-colors duration-200 ${
+            isRunning
+              ? theme === "dark"
+                ? "bg-rose-700 text-white hover:bg-rose-800"
+                : "bg-rose-600 text-white hover:bg-rose-700"
+              : theme === "dark"
+              ? "bg-blue-700 text-white hover:bg-blue-800"
+              : "bg-blue-600 text-white hover:bg-blue-700"
+          }`}
+        >
+          {isRunning ? "Pause" : "Start"}
+        </button>
+      </div>
     </div>
   );
 }
