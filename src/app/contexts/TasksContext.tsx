@@ -19,6 +19,18 @@ export interface Task {
   estimatedPomodoros: number;
 }
 
+// Interface for serialized task data from localStorage
+interface SerializedTask {
+  id: string;
+  title: string;
+  description?: string;
+  createdAt: string; // ISO string from JSON
+  completedAt?: string; // ISO string from JSON
+  isCompleted: boolean;
+  pomodorosUsed: number;
+  estimatedPomodoros: number;
+}
+
 interface TasksContextType {
   tasks: Task[];
   completedTasks: Task[];
@@ -49,7 +61,7 @@ export function TasksProvider({ children }: { children: ReactNode }) {
     if (savedTasks) {
       try {
         const parsed = JSON.parse(savedTasks);
-        const tasksWithDates = parsed.map((task: any) => ({
+        const tasksWithDates = parsed.map((task: SerializedTask) => ({
           ...task,
           createdAt: new Date(task.createdAt),
           completedAt: task.completedAt
@@ -65,7 +77,7 @@ export function TasksProvider({ children }: { children: ReactNode }) {
     if (savedCompletedTasks) {
       try {
         const parsed = JSON.parse(savedCompletedTasks);
-        const completedWithDates = parsed.map((task: any) => ({
+        const completedWithDates = parsed.map((task: SerializedTask) => ({
           ...task,
           createdAt: new Date(task.createdAt),
           completedAt: task.completedAt
