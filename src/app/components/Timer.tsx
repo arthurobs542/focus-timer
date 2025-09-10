@@ -26,7 +26,7 @@ export default function Timer() {
 
   return (
     <div className="text-center">
-      <h1 className="text-8xl font-black">
+      <h1 className="text-8xl font-bold">
         {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
       </h1>
       <div className="mt-4 grid grid-cols-3 gap-3 justify-center">
