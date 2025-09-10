@@ -2,6 +2,7 @@
 
 import { Dialog } from "@headlessui/react";
 import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import { useSettings } from "../contexts/SettingsContext";
 
 interface SettingsModalProps {
@@ -10,6 +11,7 @@ interface SettingsModalProps {
 }
 
 export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
+  const { theme } = useTheme();
   const { settings, updateSettings } = useSettings();
   const [pomodoro, setPomodoro] = useState(settings.pomodoro);
   const [shortBreak, setShortBreak] = useState(settings.shortBreak);
@@ -32,59 +34,116 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
-      <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
+      <div
+        className={`fixed inset-0 ${
+          theme === "dark" ? "bg-black/40" : "bg-black/20"
+        }`}
+        aria-hidden="true"
+      />
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="w-full max-w-md rounded-2xl bg-white dark:bg-gray-900 p-6 shadow-lg">
+        <Dialog.Panel
+          className={`w-full max-w-md rounded-2xl p-4 sm:p-6 shadow-lg ${
+            theme === "dark"
+              ? "bg-gray-900 border border-gray-700"
+              : "bg-white border border-gray-200"
+          }`}
+        >
           <div className="flex justify-between items-center mb-6">
-            <Dialog.Title className="text-xl font-bold text-gray-800 dark:text-gray-200">
+            <Dialog.Title
+              className={`text-xl font-bold ${
+                theme === "dark" ? "text-gray-200" : "text-gray-800"
+              }`}
+            >
               Configurações
             </Dialog.Title>
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-100"
+              className={`transition-colors ${
+                theme === "dark"
+                  ? "text-gray-400 hover:text-gray-100"
+                  : "text-gray-500 hover:text-gray-800"
+              }`}
             >
               ✕
             </button>
           </div>
 
           {/* Campos de tempo */}
-          <h3 className="text-md font-semibold text-gray-700 dark:text-gray-300 mb-3">
+          <h3
+            className={`text-md font-semibold mb-3 ${
+              theme === "dark" ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
             Tempo (minutos)
           </h3>
-          <div className="grid grid-cols-3 gap-3 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
             <div className="flex flex-col">
-              <label className="text-sm mb-1">Pomodoro</label>
+              <label
+                className={`text-sm mb-1 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Pomodoro
+              </label>
               <input
                 type="number"
                 value={pomodoro}
                 onChange={(e) => setPomodoro(Number(e.target.value))}
-                className="border rounded-md p-2 dark:bg-gray-800 dark:border-gray-600"
+                className={`border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  theme === "dark"
+                    ? "bg-gray-800 border-gray-600 text-white"
+                    : "bg-white border-gray-300 text-gray-900"
+                }`}
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-sm mb-1">Pausa Curta</label>
+              <label
+                className={`text-sm mb-1 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Pausa Curta
+              </label>
               <input
                 type="number"
                 value={shortBreak}
                 onChange={(e) => setShortBreak(Number(e.target.value))}
-                className="border rounded-md p-2 dark:bg-gray-800 dark:border-gray-600"
+                className={`border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  theme === "dark"
+                    ? "bg-gray-800 border-gray-600 text-white"
+                    : "bg-white border-gray-300 text-gray-900"
+                }`}
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-sm mb-1">Pausa Longa</label>
+              <label
+                className={`text-sm mb-1 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Pausa Longa
+              </label>
               <input
                 type="number"
                 value={longBreak}
                 onChange={(e) => setLongBreak(Number(e.target.value))}
-                className="border rounded-md p-2 dark:bg-gray-800 dark:border-gray-600"
+                className={`border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  theme === "dark"
+                    ? "bg-gray-800 border-gray-600 text-white"
+                    : "bg-white border-gray-300 text-gray-900"
+                }`}
               />
             </div>
           </div>
 
           {/* Toggles */}
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm text-gray-700 dark:text-gray-300">
+            <span
+              className={`text-sm ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Iniciar Automaticamente as Pausas?
             </span>
             <input
@@ -96,7 +155,11 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </div>
 
           <div className="flex items-center justify-between mb-6">
-            <span className="text-sm text-gray-700 dark:text-gray-300">
+            <span
+              className={`text-sm ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Iniciar Automaticamente o Timer?
             </span>
             <input
@@ -108,19 +171,33 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           </div>
 
           <div className="flex flex-col mb-6">
-            <label className="text-sm mb-1">Intervalo para Pausa Longa</label>
+            <label
+              className={`text-sm mb-1 ${
+                theme === "dark" ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Intervalo para Pausa Longa
+            </label>
             <input
               type="number"
               value={longBreakInterval}
               onChange={(e) => setLongBreakInterval(Number(e.target.value))}
-              className="border rounded-md p-2 dark:bg-gray-800 dark:border-gray-600"
+              className={`border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                theme === "dark"
+                  ? "bg-gray-800 border-gray-600 text-white"
+                  : "bg-white border-gray-300 text-gray-900"
+              }`}
             />
           </div>
 
           <div className="flex justify-end gap-3">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600"
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                theme === "dark"
+                  ? "bg-gray-700 text-gray-100 hover:bg-gray-600"
+                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              }`}
             >
               Cancelar
             </button>
@@ -136,7 +213,11 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 });
                 onClose();
               }}
-              className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+              className={`px-4 py-2 rounded-lg text-white transition-colors ${
+                theme === "dark"
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-blue-500 hover:bg-blue-600"
+              }`}
             >
               Salvar
             </button>
