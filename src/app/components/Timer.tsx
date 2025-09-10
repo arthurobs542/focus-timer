@@ -7,6 +7,9 @@ export default function Timer() {
   const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
+  const SHORT_BREAK = 5;
+  const LONG_BREAK = 15;
+
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isRunning) {
@@ -26,9 +29,6 @@ export default function Timer() {
 
   return (
     <div className="text-center">
-      <h1 className="text-8xl font-bold">
-        {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
-      </h1>
       <div className="mt-4 grid grid-cols-3 gap-3 justify-center">
         <button
           onClick={() => setIsRunning(true)}
@@ -41,16 +41,34 @@ export default function Timer() {
           Start
         </button>
         <button
-          onClick={() => setIsRunning(false)}
+          onClick={() => {
+            setIsRunning(false);
+            setMinutes(SHORT_BREAK);
+            setSeconds(0);
+          }}
+          className={`px-4 rounded-xl font-bold   ${
+            isRunning
+              ? " bg-green-400 text-white "
+              : "bg-gray-500 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+          } `}
+        >
+          Short Break
+        </button>
+        <button
+          onClick={() => {
+            setIsRunning(false);
+            setMinutes(LONG_BREAK);
+            setSeconds(0);
+          }}
           className={`px-4 rounded-xl font-bold   ${
             isRunning
               ? " bg-amber-500 text-white "
               : "bg-gray-500 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
           } `}
         >
-          Pause
+          Long Break
         </button>
-        <button
+        {/* <button
           onClick={() => {
             setIsRunning(false);
             setMinutes(25);
@@ -63,8 +81,11 @@ export default function Timer() {
           } `}
         >
           Reset
-        </button>
+        </button> */}
       </div>
+      <h1 className="text-8xl font-bold">
+        {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
+      </h1>
     </div>
   );
 }
