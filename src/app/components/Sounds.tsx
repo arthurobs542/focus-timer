@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 
-type SoundOption = "florest" | "rain" | "coffee" | "fire" | "relax";
+type SoundOption = "florest" | "rain" | "coffee" | "fire";
 
 const sounds: Record<SoundOption, string> = {
   florest: "/sounds/florest.mp3",
   fire: "/sounds/fire.mp3",
   coffee: "/sounds/coffee.mp3",
   rain: "/sounds/rain.mp3",
-  relax: "/sounds/relax.mp3",
 };
 
 interface PlayingSound {
@@ -57,7 +56,7 @@ export default function Sounds() {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 mt-8 w-full max-w-md">
+      <div className="grid grid-cols-4 gap-3 mt-8 w-full max-w-md">
         {Object.keys(sounds).map((key) => {
           const option = key as SoundOption;
           const isPlaying = playing.some((s) => s.option === option);
@@ -66,9 +65,14 @@ export default function Sounds() {
           return (
             <div
               key={option}
-              className={`p-4 rounded-xl shadow flex flex-col items-center
-                ${isPlaying ? "bg-white text-black" : "bg-gray-600"}
-              `}
+              className={`
+      text-center px-4 py-2 rounded-lg transition
+    ${
+      isPlaying
+        ? "bg-amber-500 text-white hover:bg-amber-600 dark:bg-amber-400 dark:hover:bg-amber-500"
+        : "bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+    }
+  `}
             >
               <button
                 onClick={() => toggleSound(option)}
@@ -78,7 +82,6 @@ export default function Sounds() {
                 {option === "fire" && "Fire"}
                 {option === "coffee" && "Coffee"}
                 {option === "rain" && "Rain"}
-                {option === "relax" && "Relax"}
               </button>
               {isPlaying && (
                 <input
@@ -90,7 +93,7 @@ export default function Sounds() {
                   onChange={(e) =>
                     changeVolume(option, parseFloat(e.target.value))
                   }
-                  className="mt-1 w-24 accent-yellow-500"
+                  className="mt-1 w-20 accent-white"
                 />
               )}
             </div>
