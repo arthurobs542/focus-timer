@@ -79,7 +79,8 @@ export default function TasksManager() {
               }`}
             >
               <span className="hidden sm:inline">
-                {showCompleted ? "Ocultar Concluídas" : "Ver Concluídas"} ({completedTasks.length})
+                {showCompleted ? "Ocultar Concluídas" : "Ver Concluídas"} (
+                {completedTasks.length})
               </span>
               <span className="sm:hidden">
                 {showCompleted ? "Ocultar" : "Ver"} ({completedTasks.length})

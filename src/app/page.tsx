@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import Sounds from "./components/Sounds";
-import ThemeToggle from "./components/ThemeToggle";
 import Timer from "./components/Timer";
 import SettingsModal from "./components/SettingsModal";
 import TasksManager from "./components/TasksManager";
+import ThemeToggle from "./components/ThemeToggle";
 
 export default function Home() {
   const [isOpen, setISOpen] = useState(false);
@@ -52,19 +52,20 @@ export default function Home() {
           <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
         </svg>
       </button>
-
+      <ThemeToggle />
       <SettingsModal isOpen={isOpen} onClose={() => setISOpen(false)} />
-      
+
       <div className="w-full max-w-4xl mx-auto space-y-6">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8">Time to Focus ⏱️</h1>
-        
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8">
+          Time to Focus ⏱️
+        </h1>
+
         <Timer currentMode={mode} onModeChange={setMode} />
-        
-        <div className="flex justify-center gap-4">
+
+        <div className="flex justify-center">
           <Sounds />
-          <ThemeToggle />
         </div>
-        
+
         <TasksManager />
       </div>
     </main>

@@ -13,7 +13,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className={`group rounded-lg p-2.5 shadow-sm backdrop-blur-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400/70 ${
+      className={`group absolute right-3 top-14 z-10 rounded-lg p-2.5 shadow-sm backdrop-blur-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400/70 ${
         theme === "dark"
           ? "border border-white/20 bg-white/20 text-white hover:bg-indigo-600/80 hover:scale-105"
           : "border border-gray-300/50 bg-white/80 text-gray-700 hover:bg-indigo-100/80 hover:scale-105"
