@@ -56,7 +56,7 @@ export default function Sounds() {
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-3 mt-8 w-full max-w-md">
+      <div className="grid grid-cols-2 gap-2 mt-8 w-[250px] max-w-md">
         {Object.keys(sounds).map((key) => {
           const option = key as SoundOption;
           const isPlaying = playing.some((s) => s.option === option);
@@ -70,7 +70,7 @@ export default function Sounds() {
     ${
       isPlaying
         ? "bg-amber-500 text-white hover:bg-amber-600 dark:bg-amber-400 dark:hover:bg-amber-500"
-        : "bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+        : "bg-gray-500 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
     }
   `}
             >
