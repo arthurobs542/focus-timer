@@ -35,7 +35,6 @@ export default function Timer({ currentMode, onModeChange }: TimerProps) {
     return () => clearInterval(timer);
   }, [isRunning, minutes, seconds]);
 
-  // Sync timer display when the selected mode changes
   useEffect(() => {
     setIsRunning(false);
     if (currentMode === "focus") {

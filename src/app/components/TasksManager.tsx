@@ -95,7 +95,6 @@ export default function TasksManager() {
           </div>
         </div>
 
-        {/* Formulário de nova tarefa */}
         {isAddingTask && (
           <form
             onSubmit={handleAddTask}
@@ -191,7 +190,6 @@ export default function TasksManager() {
           </form>
         )}
 
-        {/* Lista de tarefas ativas */}
         {!showCompleted && (
           <div className="space-y-3">
             <h3
@@ -295,7 +293,6 @@ export default function TasksManager() {
           </div>
         )}
 
-        {/* Lista de tarefas concluídas */}
         {showCompleted && (
           <div className="space-y-3">
             <h3

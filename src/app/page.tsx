@@ -6,6 +6,7 @@ import Timer from "./components/Timer";
 import SettingsModal from "./components/SettingsModal";
 import TasksManager from "./components/TasksManager";
 import ThemeToggle from "./components/ThemeToggle";
+import FeedbackButton from "./components/Feedbacks";
 
 export default function Home() {
   const [isOpen, setISOpen] = useState(false);
@@ -67,6 +68,7 @@ export default function Home() {
         </div>
 
         <TasksManager />
+        <FeedbackButton />
       </div>
     </main>
   );
